@@ -12,9 +12,9 @@ phases:
   build:
     commands:
       - npm run build
-      - aws s3 rm s3://my-movies-app/css --recursive
-      - aws s3 rm s3://my-movies-app/img --recursive
-      - aws s3 rm s3://my-movies-app/js --recursive
+      - aws s3 rm -rf s3://my-movies-app/css --recursive
+      - aws s3 rm -rf s3://my-movies-app/img --recursive
+      - aws s3 rm -rf s3://my-movies-app/js --recursive
       - aws s3 cp ./dist/css s3://my-movies-app/css --recursive
       - aws s3 cp ./dist/img s3://my-movies-app/img --recursive
       - aws s3 cp ./dist/js s3://my-movies-app/js --recursive
