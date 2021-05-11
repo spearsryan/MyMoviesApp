@@ -10,7 +10,6 @@ import UserInfoApi from '@/app/user-info-api';
 Vue.use(VueRouter);
 
 function requireAuth(to, from, next) {
-	debugger;
 	if (!auth.auth.isUserSignedIn()) {
 		Store.dispatch('setLoggedIn', false);
 		next({
