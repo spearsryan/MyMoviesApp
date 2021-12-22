@@ -3,10 +3,10 @@ import auth from './auth';
 
 
 export default {
-	getUserInfo() {
-		var jwtToken = auth.auth.getSignInUserSession().getAccessToken().jwtToken;
+	getUserInfo(): Promise<any> {
+		const jwtToken = auth.auth.getSignInUserSession().getAccessToken().jwtToken;
 		const USERINFO_URL = 'https://' + auth.auth.getAppWebDomain() + '/oauth2/userInfo';
-		var requestData = {
+		const requestData = {
 			headers: {
 				'Authorization': 'Bearer ' + jwtToken
 			}

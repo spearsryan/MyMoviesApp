@@ -2,8 +2,8 @@ import {
 	CognitoAuth,
 	StorageHelper
 } from "amazon-cognito-auth-js";
-import IndexRouter from "../router/index";
-import UserInfoStore from "@/store/index";
+import IndexRouter from "@/router/index";
+//import * as UserInfoStore from "@/store/user/index";
 import UserInfoApi from "./user-info-api";
 
 const CLIENT_ID = process.env.VUE_APP_COGNITO_CLIENT_ID;
@@ -11,9 +11,9 @@ const APP_DOMAIN = "my-movies-app.auth.us-east-2.amazoncognito.com";
 const REDIRECT_URI = process.env.VUE_APP_COGNITO_REDIRECT_URI;
 const USERPOOL_ID = process.env.VUE_APP_COGNITO_USERPOOL_ID;
 const REDIRECT_URI_SIGNOUT = process.env.VUE_APP_COGNITO_REDIRECT_URI_SIGNOUT;
-const APP_URL = process.env.VUE_APP_APP_URL;
+// const APP_URL = process.env.VUE_APP_APP_URL;
 
-var authData = {
+const authData = {
 	ClientId: CLIENT_ID,
 	AppWebDomain: APP_DOMAIN,
 	TokenScopesArray: ["openid", "email"],
@@ -22,19 +22,18 @@ var authData = {
 	UserPoolId: USERPOOL_ID
 };
 
-var auth = new CognitoAuth(authData);
+const auth = new CognitoAuth(authData);
 
 auth.userhandler = {
-	onSuccess: function (result) {
+	onSuccess: function (result: any) {
 		console.log("On Success result", result);
-		UserInfoStore.dispatch("setLoggedIn", true);
-		UserInfoApi.getUserInfo().then(response => {
+		UserInfoApi.getUserInfo().then((response: any) => {
+			console.log(response);
 			IndexRouter.push("/");
 		});
 	},
-	onFailure: function (err) {
-		UserInfoStore.dispatch("setLoggedOut");
-		IndexRouter.go({
+	onFailure: function (err: any) {
+		IndexRouter.replace({
 			path: "/error",
 			query: {
 				message: "Login failed due to " + err
@@ -43,23 +42,23 @@ auth.userhandler = {
 	}
 };
 
-function getUserInfoStorageKey() {
-	var keyPrefix = "CognitoIdentityServiceProvider." + auth.getClientId();
-	var tokenUserName = auth.signInUserSession.getAccessToken().getUsername();
-	var userInfoKey = keyPrefix + "." + tokenUserName + ".userInfo";
+function getUserInfoStorageKey(): string {
+	const keyPrefix = "CognitoIdentityServiceProvider." + auth.getClientId();
+	const tokenUserName = auth.signInUserSession.getAccessToken().getUsername();
+	const userInfoKey = keyPrefix + "." + tokenUserName + ".userInfo";
 	return userInfoKey;
 }
 
-var storageHelper = new StorageHelper();
-var storage = storageHelper.getStorage();
+const storageHelper = new StorageHelper();
+const storage = storageHelper.getStorage();
 export default {
 	auth: auth,
-	login() {
+	login(): void {
 		auth.getSession();
 	},
-	logout() {
+	logout(): void {
 		if (auth.isUserSignedIn()) {
-			var userInfoKey = this.getUserInfoStorageKey();
+			const userInfoKey = this.getUserInfoStorageKey();
 			auth.signOut();
 
 			storage.removeItem(userInfoKey);

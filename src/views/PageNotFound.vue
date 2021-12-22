@@ -2,7 +2,7 @@
   <v-container>
 		<v-row>
 			<v-col>
-				<div class="alert alert-danger">{{$route.query.message}}</div>
+				<h2>Page Not Found</h2>
 			</v-col>
 		</v-row>
 	</v-container>
@@ -12,8 +12,9 @@
 	import Vue from 'Vue';
 
 	export default Vue.extend({
-		name: "Error",
+		name: "PageNotFound",
 		data: () => ({
-		})
+			//
+		}),
 	});
 </script>
