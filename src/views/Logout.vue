@@ -10,12 +10,15 @@
 </template>
 
 <script lang="ts">
-	import Vue from 'Vue';
+  import Vue from 'vue'
 
-	export default Vue.extend({
-		name: "Logout",
-		data: () => ({
-			//
-		}),
-	});
+  export default Vue.extend({
+    name: 'Logout',
+		data() {
+			return {
+
+			};
+		}
+  })
 </script>
+
