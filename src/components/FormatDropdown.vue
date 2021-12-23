@@ -2,7 +2,7 @@
   <v-select
 		v-model="input"
 		:items="formats"
-		label="Formats"
+		:label="label"
     @input="assignValue"
     @blur="emitValue"
 	></v-select>
@@ -15,6 +15,7 @@
 		name: "FormatDropdown",
 		props: {
 			value: { type: String },
+			label: { type: String }
 		},
 		data: function() {
 			return {

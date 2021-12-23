@@ -1,52 +1,53 @@
 <template>
   <v-container>
 		<v-row>
-			<v-col md="3" sm="12" xs="12">
+			<v-col md="6" sm="12" cols="12">
         <v-text-field
 					v-model="movieName"
 					label="Movie Name">
 				</v-text-field>
 			</v-col>
-			<v-col md="3" sm="12" xs="12">
+			<v-col md="6" sm="12" cols="12">
         <v-text-field
 					v-model="alphabeticalMovieName"
 					label="Alphabetical Movie Name">
 				</v-text-field>
 			</v-col>
-			<v-col md="3" sm="12" xs="12">
+			<v-col md="2" sm="12" cols="12">
 				<v-checkbox
 					v-model="own"
 					label="Owned?">
 				</v-checkbox>
 			</v-col>
-			<v-col md="3" sm="12" xs="12">
+			<v-col md="2" sm="12" cols="12">
         <v-format-dropdown
 					v-model="ownFormat"
 					label="Owned Format">
 				</v-format-dropdown>
 			</v-col>
-			<v-col md="3" sm="12" xs="12">
+			<v-col md="2" sm="12" cols="12">
 				<v-checkbox
 					v-model="wishlist"
 					label="Wishlist Item">
 				</v-checkbox>
 			</v-col>
-			<v-col md="3" sm="12" xs="12">
+			<v-col md="2" sm="12" cols="12">
         <v-format-dropdown
 					v-model="wishlistFormat"
 					label="What format do you want?">
 				</v-format-dropdown>
 			</v-col>
-			<v-col md="3" sm="12" xs="12">
+			<v-col md="2" sm="12" cols="12">
         <v-watch-status
 					v-model="watchStatus"
 					label="Watch Status">
 				</v-watch-status>
 			</v-col>
-			<v-col md="3" sm="12" xs="12">
+		</v-row>
+		<v-row>
+			<v-col cols="12">
         <v-btn to="/">Cancel</v-btn>
-			</v-col>
-			<v-col md="3" sm="12" xs="12">
+				&nbsp;
         <v-btn @click="addMovie">Add Movie</v-btn>
 			</v-col>
 		</v-row>
@@ -98,9 +99,6 @@
 						Authorization: "Bearer " + jwtToken
 					}
 				};
-
-				console.log('config: ', config);
-				console.log('requestData: ', requestData);
 
 				return axios
 					.post(

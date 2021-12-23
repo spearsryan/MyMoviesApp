@@ -58,7 +58,7 @@
 					{ text: 'WatchStatus', value: 'WatchStatus' },
 					{ text: 'Wishlist', value: 'Wishlist' },
 					{ text: 'WishlistFormat', value: 'WishlistFormat' },
-          { text: 'Expand', value: 'data-table-expand' }
+          { text: '', value: 'data-table-expand' }
 				],
 				movies: []
 			};
