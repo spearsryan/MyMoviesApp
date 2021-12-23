@@ -49,18 +49,17 @@ type UserActionContext = ActionContext<UserState, MinimalRootState>;
 export const actions = {
 	identity: async ({ commit, dispatch }: UserActionContext, identity: UserClaims) : Promise<void> => {
 		commit('IDENTITY', identity);
-		await dispatch('restrictions');
 	}
 };
 
 export type UserGetters = typeof getters;
 export const getters = {
 	initialized: (state: UserState) : boolean => state.initialized,
-	name: (state: UserState) : string => {
-		return state.identity && state.identity.NAME ? state.identity.NAME : "";
+	username: (state: UserState) : string => {
+		return state.identity && state.identity.username ? state.identity.username : "";
 	},
 	email: (state: UserState) : string => {
-		return state.identity && state.identity.EMAIL ? state.identity.EMAIL : "";
+		return state.identity && state.identity.username ? state.identity.username : "";
 	}
 };
 

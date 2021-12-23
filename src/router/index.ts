@@ -16,6 +16,7 @@ function requireAuth(to: any, from: any, next: any) {
 		});
 	} else {
 		UserInfoApi.getUserInfo().then((response: any) => {
+			console.log('response: ', response);
 			UserStore.useActions(['identity']).identity(response);
 			next();
 		});
@@ -25,9 +26,15 @@ function requireAuth(to: any, from: any, next: any) {
 const BasicRoutes: Array<RouteConfig> = [
   {
     path: '/',
-		name: "home",
+		name: "Home",
 		component: () => import( /* webpackChunkName: "home" */
 			'@/views/Home.vue'),
+		beforeEnter: requireAuth
+  }, {
+    path: '/AddMovie',
+		name: "AddMovie",
+		component: () => import( /* webpackChunkName: "addmovie" */
+			'@/views/AddMovie.vue'),
 		beforeEnter: requireAuth
   }, {
 		path: '/Error',

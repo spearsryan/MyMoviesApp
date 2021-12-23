@@ -4,8 +4,8 @@
       <v-toolbar-title>My Movies App</v-toolbar-title>
 
 			<v-spacer></v-spacer>
-			<div v-if="!!name" class="d-none d-sm-inline-flex text-h4">{{ `Welcome, ${name}` }}</div>
-			<v-tooltip bottom v-if="!!name">
+			<div v-if="!!username" class="d-none d-sm-inline-flex text-h4">{{ `Welcome, ${username}` }}</div>
+			<v-tooltip bottom v-if="!!username">
 				<template v-slot:activator="{ on, attrs }">
 					<v-btn
 							class="d-inline-flex d-sm-none"
@@ -17,9 +17,9 @@
 						</v-icon>
 					</v-btn>
 				</template>
-				<span>{{ `Welcome, ${name}` }}</span>
+				<span>{{ `Welcome, ${username}` }}</span>
 			</v-tooltip>
-			<div v-if="!name">
+			<div v-if="!username">
 				<a :href="signInUrl">Login</a>
 			</div>
     </v-app-bar>
@@ -45,8 +45,10 @@ export default Vue.extend({
 		redirectUrl: "http://localhost:8080",
   }),
 	computed: {
-		name() {
-			return useGetters(["name"]).name.value ? useGetters(["name"]).name.value : "N/A";
+		username() {
+			const username = useGetters(["username"]).username.value;
+			console.log('username: ', username);
+			return useGetters(["username"]).username.value ? useGetters(["username"]).username.value : "N/A";
 		},
 		signInUrl() {
 			return `https://${this.appName}.auth.${this.awsRegion}.amazoncognito.com/login?response_type=code&client_id=${this.clientId}&redirect_uri=${this.redirectUrl}`;
