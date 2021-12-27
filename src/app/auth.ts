@@ -7,11 +7,10 @@ import IndexRouter from "@/router/index";
 import UserInfoApi from "./user-info-api";
 
 const CLIENT_ID = process.env.VUE_APP_COGNITO_CLIENT_ID;
-const APP_DOMAIN = process.env.VUE_APP_APP_DOMAIN;
+const APP_DOMAIN = process.env.VUE_APP_COGNITO_APP_DOMAIN;
 const REDIRECT_URI = process.env.VUE_APP_COGNITO_REDIRECT_URI;
 const USERPOOL_ID = process.env.VUE_APP_COGNITO_USERPOOL_ID;
 const REDIRECT_URI_SIGNOUT = process.env.VUE_APP_COGNITO_REDIRECT_URI_SIGNOUT;
-// const APP_URL = process.env.VUE_APP_APP_URL;
 
 const authData = {
 	ClientId: CLIENT_ID,
