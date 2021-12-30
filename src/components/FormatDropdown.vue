@@ -21,10 +21,16 @@
 			return {
 				input: '',
 				formats: [
+					'3D',
+					'3D/Bluray/DVD',
 					'4K',
 					'4K/Bluray',
+					'4K/Bluray/DVD',
 					'Bluray',
+					'Bluray/DVD',
+					'Digital',
 					'DVD',
+					'DVD (Copy)',
 					'VHS'
 				]
 			};
