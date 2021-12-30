@@ -97,6 +97,7 @@
 					<v-textarea
 						v-model="notes"
 						label="Notes"
+						rows="1"
 						auto-grow
 					>
 					</v-textarea>
