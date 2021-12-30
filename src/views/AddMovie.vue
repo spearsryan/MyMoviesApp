@@ -32,9 +32,10 @@
 				<v-col md="3" sm="12" cols="12">
 					<v-combobox
 						v-model="digital"
+						label="If Owned Digitally (Format - Location)"
 						:items="digitalOptions"
 						:search-input.sync="digitalSearch"
-						label="If Owned Digitally (Format - Location)"
+						:disabled="ownFormat != 'Digital'"
 					>
 						<template v-slot:no-data>
 							<v-list-item>
