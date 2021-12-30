@@ -9,7 +9,7 @@
 					:expanded.sync="expanded"
 					:search="search"
 					:loading="loading"
-    			loading-text="Loading... Please wait"
+					loading-text="Loading... Please wait"
 					show-expand
 					item-key="MovieId"
 					class="elevation-3"
