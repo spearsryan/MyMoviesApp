@@ -3,6 +3,9 @@
 		v-model="input"
 		:items="formats"
 		:label="label"
+		:disabled="disabled"
+		:required="!disabled"
+		:rules="[requiredRule]"
     @input="assignValue"
     @blur="emitValue"
 	></v-select>
@@ -15,7 +18,8 @@
 		name: "FormatDropdown",
 		props: {
 			value: { type: String },
-			label: { type: String }
+			label: { type: String },
+			disabled: { type: Boolean }
 		},
 		data: function() {
 			return {
@@ -49,6 +53,9 @@
 			}
 		},
 		methods: {
+			requiredRule(val: any) {
+				return !val && !this.disabled ? 'This field is required' : true;
+			},
 			assignValue(value: string) {
 				this.input = value;
 				this.emitValue();
