@@ -123,7 +123,44 @@ export default Vue.extend({
       wishlist: false as boolean,
       wishlistFormat: null as unknown as string,
 			selectedTags: [] as Array<string>,
-			availableTags: [] as Array<string>,
+			availableTags: [
+				'007 - James Bond',
+				'2 Tapes',
+				'Animated',
+				'Batman',
+				'Bourne',
+				'Clint Eastwood',
+				'Criterion',
+				'DCEU',
+				'Die Hard',
+				'Disney Animated',
+				'Fast And Furious',
+				'John Wayne',
+				'John Wick',
+				'Lord Of The Rings',
+				'Mad Max',
+				'Marvel',
+				'Marvel - Sony',
+				'Matrix',
+				'Mini-Series',
+				'Naked Gun',
+				'Ocean\'s',
+				'Package as a Collection',
+				'Pirates Of The Caribbean',
+				'Pixar',
+				'Quentin Tarantino',
+				'Rambo',
+				'Rocky',
+				'Rush Hour Trilogy',
+				'Shrek',
+				'Spider-Man (Sam Rami)',
+				'Star Trek',
+				'Star Wars',
+				'Taken',
+				'Terminater',
+				'Transformers',
+				'TV Show'
+			],
 			digital: null as unknown as string,
 			digitalOptions: [
 				'HD - Google',
@@ -184,22 +221,19 @@ export default Vue.extend({
         },
       };
 
-			console.log('requestData', requestData);
-			console.log('config', config);
-
-      // return axios
-      //   .post(
-      //     "https://0tuwws2k03.execute-api.us-east-2.amazonaws.com/v1",
-      //     requestData,
-      //     config
-      //   )
-      //   .then((response) => {
-      //     console.log(response.data);
-      //     return response.data;
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      return axios
+        .post(
+          "https://0tuwws2k03.execute-api.us-east-2.amazonaws.com/v1",
+          requestData,
+          config
+        )
+        .then((response) => {
+          console.log(response.data);
+          return response.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 });
