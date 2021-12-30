@@ -8,6 +8,8 @@
 					:single-expand="true"
 					:expanded.sync="expanded"
 					:search="search"
+					:loading="loading"
+    			loading-text="Loading... Please wait"
 					show-expand
 					item-key="MovieId"
 					class="elevation-3"
@@ -49,6 +51,7 @@
 			return {
 				movieName: null,
 				search: '',
+				loading: false,
 				expanded: [],
 				headers: [
 					{ text: 'Name', value: 'MovieName' },
@@ -65,6 +68,7 @@
 		},
 		methods: {
 			getMovies() {
+				this.loading = true;
 				const jwtToken = auth.auth.getSignInUserSession().getIdToken().jwtToken;
 
 				var requestData = {
@@ -81,10 +85,12 @@
 						requestData
 					)
 					.then(response => {
+						this.loading = false;
 						console.log(response.data);
 						this.movies = response.data;
 					})
 					.catch(err => {
+						this.loading = false;
 						console.log(err);
 					});
 			}
