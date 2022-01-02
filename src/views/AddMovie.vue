@@ -25,9 +25,9 @@
 				<v-col md="1" sm="12" cols="12">
 					<v-checkbox v-model="own" label="Owned?"> </v-checkbox>
 				</v-col>
-				<v-col md="2" sm="12" cols="12">
-					<v-format-dropdown v-model="ownFormat" label="Owned Format" :disabled="!own">
-					</v-format-dropdown>
+				<v-col md="4" sm="12" cols="12">
+					<v-format-multiselect v-model="ownFormat" label="Owned Formats">
+					</v-format-multiselect>
 				</v-col>
 				<v-col md="3" sm="12" cols="12">
 					<v-combobox
@@ -35,7 +35,7 @@
 						label="If Owned Digitally (Format - Location)"
 						:items="digitalOptions"
 						:search-input.sync="digitalSearch"
-						:disabled="ownFormat != 'Digital'"
+						:disabled="disableDigitalDropdown"
 					>
 						<template v-slot:no-data>
 							<v-list-item>
@@ -50,18 +50,17 @@
 				<v-col md="1" sm="12" cols="12">
 					<v-checkbox v-model="wishlist" label="Wishlist Item"></v-checkbox>
 				</v-col>
-				<v-col md="2" sm="12" cols="12">
+				<v-col md="3" sm="12" cols="12">
 					<v-format-dropdown
 						v-model="wishlistFormat"
-						label="What format do you want?"
-						:disabled="!wishlist"
+						label="Wishlist Format"
 					></v-format-dropdown>
 				</v-col>
 				<v-col md="2" sm="12" cols="12">
 					<v-watch-status v-model="watchStatus" label="Watch Status">
 					</v-watch-status>
 				</v-col>
-				<v-col md="6" sm="12" cols="12">
+				<v-col md="5" sm="12" cols="12">
 					<v-combobox
 						v-model="selectedTags"
 						:items="availableTags"
@@ -69,7 +68,7 @@
 						hide-selected
 						label="Add some tags"
 						multiple
-						small-chips
+						chips
 					>
 						<template v-slot:selection="{ attrs, item, select, selected }">
 							<v-chip
@@ -94,7 +93,7 @@
 						</template>
 					</v-combobox>
 				</v-col>
-				<v-col md="6" sm="12" cols="12">
+				<v-col md="5" sm="12" cols="12">
 					<v-textarea
 						v-model="notes"
 						label="Notes"
@@ -118,6 +117,7 @@ import Vue from "vue";
 import auth from "@/app/auth";
 import axios from "axios";
 import FormatDropdown from "@/components/FormatDropdown.vue";
+import FormatMultiSelect from "@/components/FormatMultiSelect.vue";
 import WatchStatus from "@/components/WatchStatus.vue";
 import { Movie } from '@/types/Movie';
 
@@ -125,6 +125,7 @@ export default Vue.extend({
   name: "AddMovie",
   components: {
     "v-format-dropdown": FormatDropdown,
+		"v-format-multiselect": FormatMultiSelect,
     "v-watch-status": WatchStatus,
   },
   data: function () {
@@ -133,18 +134,21 @@ export default Vue.extend({
 			error: null,
       movieName: null as unknown as string,
       alphabeticalMovieName: null as unknown as string,
-      own: false as boolean,
-      ownFormat: null as unknown as string,
+      ownFormat: [] as Array<string>,
       watchStatus: null as unknown as string,
-      wishlist: false as boolean,
       wishlistFormat: null as unknown as string,
 			selectedTags: [] as Array<string>,
 			availableTags: [
 				'007 - James Bond',
 				'2 Tapes',
+				'Alien',
 				'Animated',
+				'Anime',
+				'Arrow Video',
 				'Batman',
+				'Biblical',
 				'Bourne',
+				'Christopher Nolan',
 				'Clint Eastwood',
 				'Criterion',
 				'DCEU',
@@ -155,19 +159,22 @@ export default Vue.extend({
 				'John Wick',
 				'Lord Of The Rings',
 				'Mad Max',
+				'Martin Scorsese',
 				'Marvel',
 				'Marvel - Sony',
 				'Matrix',
 				'Mini-Series',
 				'Naked Gun',
 				'Ocean\'s',
-				'Package as a Collection',
+				'Packaged as a Collection',
 				'Pirates Of The Caribbean',
 				'Pixar',
 				'Quentin Tarantino',
 				'Rambo',
+				'Ridley Scott',
 				'Rocky',
 				'Rush Hour Trilogy',
+				'Shout Factory',
 				'Shrek',
 				'Spider-Man (Sam Rami)',
 				'Star Trek',
@@ -191,6 +198,11 @@ export default Vue.extend({
 			notes: null as unknown as string
     };
   },
+	computed: {
+		disableDigitalDropdown: function () : boolean {
+			return !this.ownFormat.includes('Digital');
+		}
+	},
   methods: {
 		requiredRule(val: any) {
 			return !val ? 'This field is required' : true;
@@ -223,10 +235,8 @@ export default Vue.extend({
 				const requestData : Movie = {
 					MovieName: this.movieName,
 					AlphabeticalMovieName: this.alphabeticalMovieName,
-					Own: this.own,
 					OwnFormat: this.ownFormat,
 					WatchStatus: this.watchStatus,
-					Wishlist: this.wishlist,
 					WishlistFormat: this.wishlistFormat,
 					Digital: this.digital,
 					Tags: this.selectedTags,
