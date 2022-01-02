@@ -22,9 +22,17 @@
 								label="Search"
 								hide-details
 							></v-text-field>
+							<!-- <v-checkbox v-model="owned" label="Owned"></v-checkbox>
+							<v-checkbox v-model="wishlist" label="Wishlist"></v-checkbox> -->
 							<v-spacer></v-spacer>
 							<v-btn color="primary" to="AddMovie">Add Movie</v-btn>
 						</v-toolbar>
+					</template>
+					<template v-slot:item.Own="{ item }">
+						{{ item.OwnFormat && item.OwnFormat.length > 0 ? 'Yes' : 'No' }}
+					</template>
+					<template v-slot:item.Wishlist="{ item }">
+						{{ item.WishlistFormat && item.WishlistFormat.length > 0 ? 'Yes' : 'No' }}
 					</template>
 					<template v-slot:expanded-item="{ headers, item }">
 						<td :colspan="headers.length">
